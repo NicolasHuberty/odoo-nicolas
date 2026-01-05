@@ -13,6 +13,7 @@ services:
       - ./addons:/mnt/extra-addons
     ports:
       - "8069:8069"
+    command: ["--", "--addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons"]
 
   db:
     image: postgres:17
