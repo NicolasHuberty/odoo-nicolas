@@ -1,28 +1,28 @@
 services:
   web:
-      image: odoo:19.0
-          depends_on:
-                - db
-                    environment:
-                          - HOST=db
-                                - USER=odoo
-                                      - PASSWORD=odoo
-                                          volumes:
-                                                - odoo-web-data:/var/lib/odoo
-                                                      - ./config:/etc/odoo
-                                                            - ./addons:/mnt/extra-addons
-                                                                ports:
-                                                                      - "8069:8069"
+    image: odoo:19.0
+    depends_on:
+      - db
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+    ports:
+      - "8069:8069"
 
-                                                                        db:
-                                                                            image: postgres:17
-                                                                                environment:
-                                                                                      - POSTGRES_DB=postgres
-                                                                                            - POSTGRES_USER=odoo
-                                                                                                  - POSTGRES_PASSWORD=odoo
-                                                                                                      volumes:
-                                                                                                            - odoo-db-data:/var/lib/postgresql/data
-                                                                                                            
-                                                                                                            volumes:
-                                                                                                              odoo-web-data:
-                                                                                                                odoo-db-data:
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
